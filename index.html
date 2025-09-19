@@ -141,9 +141,8 @@
         .contact-socials .social-link { width: 60px; height: 60px; background-color: var(--secondary-color); }
         .contact-socials .social-link i { color: var(--text-color); font-size: 28px; }
         
-        /* --- Footer & Visitor Counter Styles (NEW) --- */
         .footer {
-            background-color: var(--secondary-color); padding: 40px 0 20px 0; /* Adjusted padding */
+            background-color: var(--secondary-color); padding: 40px 0 20px 0;
             text-align: center; border-top: 1px solid var(--border-color);
         }
         .footer-links { margin-bottom: 20px; }
@@ -212,10 +211,10 @@
                     <a href="#projects" class="btn btn-secondary" data-translate="hero_cta_work">View My Work</a>
                 </div>
                 <div class="hero-socials">
-                    <a href="https://www.facebook.com" target="_blank" class="social-link facebook" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="https://www.instagram.com" target="_blank" class="social-link instagram" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="https://twitter.com" target="_blank" class="social-link twitter" aria-label="X/Twitter"><i class="fa-brands fa-x-twitter"></i></a>
-                    <a href="https://www.tiktok.com" target="_blank" class="social-link tiktok" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="https://www.facebook.com/elm3hdy2" target="_blank" class="social-link facebook" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/elm3hdy_01" target="_blank" class="social-link instagram" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://x.com/elm3hdy" target="_blank" class="social-link twitter" aria-label="X/Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="https://www.tiktok.com/@elm3hdy" target="_blank" class="social-link tiktok" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
                     <a href="https://wa.me/201116506278" target="_blank" class="social-link whatsapp" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
                 </div>
             </div>
@@ -262,10 +261,10 @@
                         <a href="https://wa.me/201116506278"><i class="fa-brands fa-whatsapp"></i> +20 111 650 6278</a>
                     </div>
                     <div class="contact-socials">
-                        <a href="https://www.facebook.com" target="_blank" class="social-link facebook" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="https://www.instagram.com" target="_blank" class="social-link instagram" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="https://twitter.com" target="_blank" class="social-link twitter" aria-label="X/Twitter"><i class="fa-brands fa-x-twitter"></i></a>
-                        <a href="https://www.tiktok.com" target="_blank" class="social-link tiktok" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                        <a href="https://www.facebook.com/elm3hdy2" target="_blank" class="social-link facebook" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/elm3hdy_01" target="_blank" class="social-link instagram" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://x.com/elm3hdy" target="_blank" class="social-link twitter" aria-label="X/Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://www.tiktok.com/@elm3hdy" target="_blank" class="social-link tiktok" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
                     </div>
                 </div>
             </div>
@@ -299,7 +298,6 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // ... (الكود الخاص بالهيدر واللغة والدارك مود يظل كما هو) ...
             const header = document.getElementById('header');
             window.addEventListener('scroll', () => { window.scrollY > 50 ? header.classList.add('scrolled') : header.classList.remove('scrolled'); });
             const themeToggle = document.getElementById('theme-toggle');
@@ -312,8 +310,8 @@
             themeToggle.addEventListener('click', () => { setTheme(htmlEl.classList.contains('dark') ? 'light' : 'dark'); });
             setTheme(localStorage.getItem('theme') || 'light');
             const translations = {
-                en: { nav_about: "About", nav_projects: "Projects", nav_contact: "Contact", lang_toggle: "AR", hero_title: "Ahmed El Mahdy", hero_subtitle: "Entrepreneur • Freelancer • Web Designer", hero_cta_contact: "Contact via WhatsApp", hero_cta_work: "View My Work", about_title: "About Me", about_subtitle: "A brief introduction", about_bio: "I'm Ahmed El Mahdy, an entrepreneur and freelance web designer with a passion for creating modern, elegant, and functional digital experiences. I thrive on turning complex problems into simple, beautiful, and intuitive designs. My work is not just about aesthetics; it's about building solutions that drive results and help businesses grow. I have developed several personal projects, including QR Hub and Office Master, to explore new technologies and refine my skills.", projects_title: "My Projects", projects_subtitle: "A selection of my recent work", project1_title: "QR Hub", project2_title: "Office Master", contact_title: "Get In Touch", contact_subtitle: "Let's build something amazing together", copyright: `© ${new Date().getFullYear()} Ahmed El Mahdy. All Rights Reserved.`, total_visits_label: "Total Visits:", today_visits_label: "Today's Visits:" },
-                ar: { nav_about: "عني", nav_projects: "المشاريع", nav_contact: "تواصل", lang_toggle: "EN", hero_title: "أحمد المهدي", hero_subtitle: "رائد أعمال • مصمم ويب حر", hero_cta_contact: "تواصل عبر واتساب", hero_cta_work: "شاهد أعمالي", about_title: "نبذة عني", about_subtitle: "مقدمة بسيطة", about_bio: "أنا أحمد المهدي، رائد أعمال ومصمم ويب مستقل شغوف بإنشاء تجارب رقمية عصرية وأنيقة وعملية. أستمتع بتحويل المشاكل المعقدة إلى تصميمات بسيطة وجميلة وبديهية. عملي لا يقتصر على الجماليات فحسب، بل يتمحور حول بناء حلول تحقق النتائج وتساعد الشركات على النمو. لقد قمت بتطوير العديد من المشاريع الشخصية، بما في ذلك QR Hub و Office Master، لاستكشاف تقنيات جديدة وصقل مهاراتي.", projects_title: "مشاريعي", projects_subtitle: "مجموعة من أحدث أعمالي", project1_title: "كي آر هب", project2_title: "أوفيس ماستر", contact_title: "تواصل معي", contact_subtitle: "لنصنع شيئاً مذهلاً معاً", copyright: `© ${new Date().getFullYear()} أحمد المهدي. جميع الحقوق محفوظة.`, total_visits_label: "إجمالي الزيارات:", today_visits_label: "زيارات اليوم:" }
+                en: { nav_about: "About", nav_projects: "Projects", nav_contact: "Contact", lang_toggle: "AR", hero_title: "Ahmed El Mahdy", hero_subtitle: "Entrepreneur • Freelancer • Web Designer", hero_cta_contact: "Contact via WhatsApp", hero_cta_work: "View My Work", about_title: "About Me", about_subtitle: "A brief introduction", about_bio: "I'm Ahmed El Mahdy, an entrepreneur and freelance web designer with a passion for creating modern, elegant, and functional digital experiences. I thrive on turning complex problems into simple, beautiful, and intuitive designs. My work is not just about aesthetics; it's about building solutions that drive results and help businesses grow. I have developed several personal projects, including QR Hub and Office Master, to explore new technologies and refine my skills.", projects_title: "My Projects", projects_subtitle: "A selection of my recent work", project1_title: "QR Hub", project2_title: "Office Master", contact_title: "Get In Touch", contact_subtitle: "Let's build something amazing together", copyright: `© 2025 Ahmed El Mahdy. All Rights Reserved.`, total_visits_label: "Total Visits:", today_visits_label: "Today's Visits:" },
+                ar: { nav_about: "عني", nav_projects: "المشاريع", nav_contact: "تواصل", lang_toggle: "EN", hero_title: "أحمد المهدي", hero_subtitle: "رائد أعمال • مصمم ويب حر", hero_cta_contact: "تواصل عبر واتساب", hero_cta_work: "شاهد أعمالي", about_title: "نبذة عني", about_subtitle: "مقدمة بسيطة", about_bio: "أنا أحمد المهدي، رائد أعمال ومصمم ويب مستقل شغوف بإنشاء تجارب رقمية عصرية وأنيقة وعملية. أستمتع بتحويل المشاكل المعقدة إلى تصميمات بسيطة وجميلة وبديهية. عملي لا يقتصر على الجماليات فحسب، بل يتمحور حول بناء حلول تحقق النتائج وتساعد الشركات على النمو. لقد قمت بتطوير العديد من المشاريع الشخصية، بما في ذلك QR Hub و Office Master، لاستكشاف تقنيات جديدة وصقل مهاراتي.", projects_title: "مشاريعي", projects_subtitle: "مجموعة من أحدث أعمالي", project1_title: "كي آر هب", project2_title: "أوفيس ماستر", contact_title: "تواصل معي", contact_subtitle: "لنصنع شيئاً مذهلاً معاً", copyright: `© 2025 أحمد المهدي. جميع الحقوق محفوظة.`, total_visits_label: "إجمالي الزيارات:", today_visits_label: "زيارات اليوم:" }
             };
             const languageToggle = document.getElementById('language-toggle');
             const whatsappBtn = document.getElementById('whatsapp-btn');
@@ -325,30 +323,30 @@
                 const phone = '+201116506278';
                 const message = lang === 'ar' ? encodeURIComponent('مرحباً أحمد، لقد رأيت موقعك الشخصي وأود التواصل معك.') : encodeURIComponent("Hello Ahmed, I saw your portfolio and would like to get in touch.");
                 whatsappBtn.href = `https://wa.me/${phone}?text=${message}`;
-                copyrightEl.textContent = translations[lang].copyright;
+                // Corrected copyright year to be dynamic
+                const currentYear = new Date().getFullYear();
+                const copyrightText = lang === 'ar' ? `© ${currentYear} أحمد المهدي. جميع الحقوق محفوظة.` : `© ${currentYear} Ahmed El Mahdy. All Rights Reserved.`;
+                copyrightEl.textContent = copyrightText;
                 localStorage.setItem('language', lang);
             };
             languageToggle.addEventListener('click', () => { setLanguage(htmlEl.getAttribute('lang') === 'ar' ? 'en' : 'ar'); });
             const savedLang = localStorage.getItem('language') || 'en';
             setLanguage(savedLang);
 
-            // --- Visitor Counter Logic (NEW) ---
+            // --- Visitor Counter Logic ---
             const totalVisitsEl = document.getElementById('total-visits');
             const todayVisitsEl = document.getElementById('today-visits');
-
-            // 1. Get today's date in YYYY-MM-DD format
             const today = new Date();
             const yyyy = today.getFullYear();
             const mm = String(today.getMonth() + 1).padStart(2, '0');
             const dd = String(today.getDate()).padStart(2, '0');
             const todayKey = `${yyyy}-${mm}-${dd}`;
-
-            // 2. Define API keys (make them unique to your site)
-            const namespace = 'ahmedelmahdy-portfolio';
+            
+            // Using a more unique namespace to avoid potential blocks or conflicts
+            const namespace = 'ahmedelmahdy-pf-2025-unique'; 
             const totalKey = 'total-visits';
             const dailyKey = `visits-${todayKey}`;
 
-            // 3. Function to update a counter and display it
             function updateCounter(key, element) {
                 fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
                     .then(res => res.json())
@@ -356,12 +354,11 @@
                         element.textContent = data.value;
                     })
                     .catch(error => {
-                        console.error('Error fetching visitor count:', error);
-                        element.textContent = 'N/A';
+                        console.error('Counter Error:', error);
+                        element.textContent = '-'; // More elegant fallback
                     });
             }
 
-            // 4. Call the function for both counters
             updateCounter(totalKey, totalVisitsEl);
             updateCounter(dailyKey, todayVisitsEl);
         });
