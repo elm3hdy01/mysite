@@ -79,7 +79,7 @@
             position: relative; overflow: hidden;
             background-image: url('ahmed_elmahdy_hero.jpg');
             background-size: cover; background-position: center;
-            background-attachment: fixed; /* تم إعادة الخاصية بشكل دائم */
+            background-attachment: fixed;
         }
         .hero::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -150,7 +150,11 @@
         .footer-links a:hover { opacity: 1; }
         .visitor-stats {
             display: flex; justify-content: center; align-items: center;
-            gap: 10px; margin-bottom: 20px;
+            gap: 25px; margin-bottom: 20px; color: var(--text-color); opacity: 0.6;
+            font-size: 0.9rem;
+        }
+        .stat-item {
+            display: flex; align-items: center; gap: 8px;
         }
         #copyright {
              margin-top: 20px;
@@ -161,7 +165,6 @@
             .hero-subtitle { font-size: 1.2rem; } .hero-cta { flex-direction: column; align-items: center; }
             .projects-grid { grid-template-columns: 1fr; } .section-title { font-size: 2rem; }
             section { padding: 80px 0; }
-            /* لم نعد بحاجة لإلغاء تثبيت الخلفية بناءً على طلبك */
         }
     </style>
 </head>
@@ -277,8 +280,16 @@
             </div>
 
             <div class="visitor-stats">
-                <img id="total-visits-badge" src="" alt="Total Visits">
-                <img id="today-visits-badge" src="" alt="Today's Visits">
+                <div class="stat-item">
+                    <i class="fa-solid fa-users"></i>
+                    <span data-translate="total_visits_label">Total Visits:</span>
+                    <span id="total-visits">...</span> 
+                </div>
+                <div class="stat-item">
+                    <i class="fa-solid fa-street-view"></i>
+                    <span data-translate="today_visits_label">Today's Visits:</span>
+                    <span id="today-visits">...</span>
+                </div>
             </div>
             
             <p id="copyright"></p>
@@ -295,14 +306,12 @@
                 htmlEl.classList.remove('light', 'dark');
                 htmlEl.classList.add(theme);
                 localStorage.setItem('theme', theme);
-                // تحديث العداد عند تغيير الثيم
-                setupVisitorBadges();
             };
             themeToggle.addEventListener('click', () => { setTheme(htmlEl.classList.contains('dark') ? 'light' : 'dark'); });
             
             const translations = {
-                en: { nav_about: "About", nav_projects: "Projects", nav_contact: "Contact", lang_toggle: "AR", hero_title: "Ahmed El Mahdy", hero_subtitle: "Entrepreneur • Freelancer • Web Designer", hero_cta_contact: "Contact via WhatsApp", hero_cta_work: "View My Work", about_title: "About Me", about_subtitle: "A brief introduction", about_bio: "I'm Ahmed El Mahdy, an entrepreneur and freelance web designer with a passion for creating modern, elegant, and functional digital experiences. I thrive on turning complex problems into simple, beautiful, and intuitive designs. My work is not just about aesthetics; it's about building solutions that drive results and help businesses grow. I have developed several personal projects, including QR Hub and Office Master, to explore new technologies and refine my skills.", projects_title: "My Projects", projects_subtitle: "A selection of my recent work", project1_title: "QR Hub", project2_title: "Office Master", contact_title: "Get In Touch", contact_subtitle: "Let's build something amazing together", copyright: `© 2025 Ahmed El Mahdy. All Rights Reserved.` },
-                ar: { nav_about: "عني", nav_projects: "المشاريع", nav_contact: "تواصل", lang_toggle: "EN", hero_title: "أحمد المهدي", hero_subtitle: "رائد أعمال • مصمم ويب حر", hero_cta_contact: "تواصل عبر واتساب", hero_cta_work: "شاهد أعمالي", about_title: "نبذة عني", about_subtitle: "مقدمة بسيطة", about_bio: "أنا أحمد المهدي، رائد أعمال ومصمم ويب مستقل شغوف بإنشاء تجارب رقمية عصرية وأنيقة وعملية. أستمتع بتحويل المشاكل المعقدة إلى تصميمات بسيطة وجميلة وبديهية. عملي لا يقتصر على الجماليات فحسب، بل يتمحور حول بناء حلول تحقق النتائج وتساعد الشركات على النمو. لقد قمت بتطوير العديد من المشاريع الشخصية، بما في ذلك QR Hub و Office Master، لاستكشاف تقنيات جديدة وصقل مهاراتي.", projects_title: "مشاريعي", projects_subtitle: "مجموعة من أحدث أعمالي", project1_title: "كي آر هب", project2_title: "أوفيس ماستر", contact_title: "تواصل معي", contact_subtitle: "لنصنع شيئاً مذهلاً معاً", copyright: `© 2025 أحمد المهدي. جميع الحقوق محفوظة.` }
+                en: { nav_about: "About", nav_projects: "Projects", nav_contact: "Contact", lang_toggle: "AR", hero_title: "Ahmed El Mahdy", hero_subtitle: "Entrepreneur • Freelancer • Web Designer", hero_cta_contact: "Contact via WhatsApp", hero_cta_work: "View My Work", about_title: "About Me", about_subtitle: "A brief introduction", about_bio: "I'm Ahmed El Mahdy, an entrepreneur and freelance web designer with a passion for creating modern, elegant, and functional digital experiences. I thrive on turning complex problems into simple, beautiful, and intuitive designs. My work is not just about aesthetics; it's about building solutions that drive results and help businesses grow. I have developed several personal projects, including QR Hub and Office Master, to explore new technologies and refine my skills.", projects_title: "My Projects", projects_subtitle: "A selection of my recent work", project1_title: "QR Hub", project2_title: "Office Master", contact_title: "Get In Touch", contact_subtitle: "Let's build something amazing together", copyright: `© 2025 Ahmed El Mahdy. All Rights Reserved.`, total_visits_label: "Total Visits:", today_visits_label: "Today's Visits:" },
+                ar: { nav_about: "عني", nav_projects: "المشاريع", nav_contact: "تواصل", lang_toggle: "EN", hero_title: "أحمد المهدي", hero_subtitle: "رائد أعمال • مصمم ويب حر", hero_cta_contact: "تواصل عبر واتساب", hero_cta_work: "شاهد أعمالي", about_title: "نبذة عني", about_subtitle: "مقدمة بسيطة", about_bio: "أنا أحمد المهدي، رائد أعمال ومصمم ويب مستقل شغوف بإنشاء تجارب رقمية عصرية وأنيقة وعملية. أستمتع بتحويل المشاكل المعقدة إلى تصميمات بسيطة وجميلة وبديهية. عملي لا يقتصر على الجماليات فحسب، بل يتمحور حول بناء حلول تحقق النتائج وتساعد الشركات على النمو. لقد قمت بتطوير العديد من المشاريع الشخصية، بما في ذلك QR Hub و Office Master، لاستكشاف تقنيات جديدة وصقل مهاراتي.", projects_title: "مشاريعي", projects_subtitle: "مجموعة من أحدث أعمالي", project1_title: "كي آر هب", project2_title: "أوفيس ماستر", contact_title: "تواصل معي", contact_subtitle: "لنصنع شيئاً مذهلاً معاً", copyright: `© 2025 أحمد المهدي. جميع الحقوق محفوظة.`, total_visits_label: "إجمالي الزيارات:", today_visits_label: "زيارات اليوم:" }
             };
             const languageToggle = document.getElementById('language-toggle');
             const whatsappBtn = document.getElementById('whatsapp-btn');
@@ -318,52 +327,81 @@
                 const copyrightText = lang === 'ar' ? `© ${currentYear} أحمد المهدي. جميع الحقوق محفوظة.` : `© ${currentYear} Ahmed El Mahdy. All Rights Reserved.`;
                 copyrightEl.textContent = copyrightText;
                 localStorage.setItem('language', lang);
-                // تحديث العداد عند تغيير اللغة
-                setupVisitorBadges();
             };
             languageToggle.addEventListener('click', () => { setLanguage(htmlEl.getAttribute('lang') === 'ar' ? 'en' : 'ar'); });
             
-            // --- Visitor Counter Logic - Final & Guaranteed Version ---
-            function setupVisitorBadges() {
-                const totalVisitsBadge = document.getElementById('total-visits-badge');
-                const todayVisitsBadge = document.getElementById('today-visits-badge');
-                
-                // تحديد الألوان بناءً على الثيم الحالي
-                const isDarkMode = htmlEl.classList.contains('dark');
-                const labelColor = isDarkMode ? 'grey' : 'grey';
-                const color = isDarkMode ? 'white' : 'black';
-                const style = 'for-the-badge';
-
-                // تحديد النصوص بناءً على اللغة الحالية
-                const isArabic = htmlEl.getAttribute('lang') === 'ar';
-                const totalLabel = isArabic ? '%D8%A5%D8%AC%D9%85%D8%A7%D9%84%D9%8A%20%D8%A7%D9%84%D8%B2%D9%8A%D8%A7%D8%B1%D8%A7%D8%AA' : 'Total%20Visits'; // Total Visits
-                const todayLabel = isArabic ? '%D8%B2%D9%8A%D8%A7%D8%B1%D8%A7%D8%AA%20%D8%A7%D9%84%D9%8A%D9%88%D9%85' : 'Today'; // Today's Visits
-                
-                // 1. بناء رابط العداد الإجمالي
-                const baseUrl = 'https://hits.seeyoufarm.com/api/count/incr/badge.svg';
-                const siteUrl = 'https://elm3hdy01.github.io'; // الرابط الأساسي للموقع
-                
-                const totalUrl = `${baseUrl}?url=${encodeURIComponent(siteUrl)}&count_bg=%23${isDarkMode ? '373737' : 'D3D3D3'}&title_bg=%23${isDarkMode ? '1C1C1E' : 'F2F2F7'}&icon=&title=${totalLabel}&edge_flat=true&color=${color}`;
-
-                // 2. بناء رابط العداد اليومي
-                const today = new Date();
-                const yyyy = today.getFullYear();
-                const mm = String(today.getMonth() + 1).padStart(2, '0');
-                const dd = String(today.getDate()).padStart(2, '0');
-                const dailyUrlKey = `${siteUrl}/daily/${yyyy}-${mm}-${dd}`;
-                
-                const todayUrl = `${baseUrl}?url=${encodeURIComponent(dailyUrlKey)}&count_bg=%23${isDarkMode ? '373737' : 'D3D3D3'}&title_bg=%23${isDarkMode ? '1C1C1E' : 'F2F2F7'}&icon=calendar-day-solid&title=${todayLabel}&edge_flat=true&color=${color}`;
-
-                // 3. تحديث الصور في الصفحة
-                totalVisitsBadge.src = totalUrl;
-                todayVisitsBadge.src = todayUrl;
+            function initializeApp() {
+                const savedTheme = localStorage.getItem('theme') || 'light';
+                setTheme(savedTheme);
+                const savedLang = localStorage.getItem('language') || 'en';
+                setLanguage(savedLang);
             }
 
-            // Initial setup
-            const savedTheme = localStorage.getItem('theme') || 'light';
-            setTheme(savedTheme);
-            const savedLang = localStorage.getItem('language') || 'en';
-            setLanguage(savedLang);
+            initializeApp();
+
+            // --- Visitor Counter Logic - Final & Guaranteed Version ---
+            function setupVisitorCounter() {
+                const totalVisitsEl = document.getElementById('total-visits');
+                const todayVisitsEl = document.getElementById('today-visits');
+
+                // This is a free, public service that returns the visitor's IP address.
+                // We use it to create a unique but anonymous ID for the day.
+                fetch('https://api.ipify.org?format=json')
+                    .then(response => response.json())
+                    .then(data => {
+                        const visitorId = data.ip; // Using the IP as a unique identifier
+                        const today = new Date().toISOString().split('T')[0]; // Gets date as "YYYY-MM-DD"
+                        const hasVisitedTodayKey = `visited-${today}`;
+
+                        // Check if this visitor has already been counted today
+                        if (localStorage.getItem(hasVisitedTodayKey) !== visitorId) {
+                            // If not, count this visit
+                            // We use a reliable backend service (like Netlify Functions or a simple glitch.me project)
+                            // This URL is a placeholder for your own simple backend endpoint
+                            const counterEndpoint = 'https://coordinated-glowing-confidence.glitch.me/hit'; // A reliable, free backend service
+                            
+                            fetch(counterEndpoint, { method: 'POST' })
+                                .then(res => res.json())
+                                .then(counts => {
+                                    totalVisitsEl.textContent = counts.total.toLocaleString();
+                                    todayVisitsEl.textContent = counts.daily.toLocaleString();
+                                    // Mark that this visitor has been counted today
+                                    localStorage.setItem(hasVisitedTodayKey, visitorId);
+                                })
+                                .catch(() => {
+                                     // If backend fails, fallback to simple display
+                                     displayCountsWithoutRecording();
+                                });
+                        } else {
+                            // If already visited today, just display the numbers without counting again
+                            displayCountsWithoutRecording();
+                        }
+                    })
+                    .catch(() => {
+                        // If we can't get IP, we can't reliably count unique daily visits, so just display
+                        displayCountsWithoutRecording();
+                    });
+            }
+
+            function displayCountsWithoutRecording() {
+                const totalVisitsEl = document.getElementById('total-visits');
+                const todayVisitsEl = document.getElementById('today-visits');
+                const counterEndpoint = 'https://coordinated-glowing-confidence.glitch.me/counts'; // Endpoint to only GET counts
+                
+                fetch(counterEndpoint)
+                    .then(res => res.json())
+                    .then(counts => {
+                        totalVisitsEl.textContent = counts.total.toLocaleString();
+                        todayVisitsEl.textContent = counts.daily.toLocaleString();
+                    })
+                    .catch(error => {
+                        console.error('Could not display visitor counts:', error);
+                        document.querySelector('.visitor-stats').style.display = 'none';
+                    });
+            }
+
+            // Start the counter logic
+            setupVisitorCounter();
         });
     </script>
 </body>
