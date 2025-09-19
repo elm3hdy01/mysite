@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahmed El Mahdy - Entrepreneur & Web Designer</title>
+    <meta name="description" content="Personal portfolio of Ahmed El Mahdy, a freelance web designer and entrepreneur based in Egypt.">
+    <meta name="author" content="Ahmed El Mahdy">
+
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>A</text></svg>">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-color: #ffffff; --text-color: #1a1a1a; --primary-color: #007aff;
+            --secondary-color: #f2f2f7; --border-color: #e5e5e5;
+            --gradient: linear-gradient(135deg, #007aff, #5856d6);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        html.dark {
+            --bg-color: #000000; --text-color: #f5f5f7; --primary-color: #0a84ff;
+            --secondary-color: #1c1c1e; --border-color: #3a3a3c;
+            --gradient: linear-gradient(135deg, #0a84ff, #6462e2);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: var(--bg-color); color: var(--text-color);
+            font-family: 'Poppins', sans-serif; transition: background-color 0.3s ease, color 0.3s ease;
+            -webkit-font-smoothing: antialiased;
+        }
+        html[dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        section { padding: 100px 0; }
+        .header {
+            position: fixed; top: 0; left: 0; width: 100%; padding: 15px 0; z-index: 100;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .header.scrolled {
+            background-color: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        html.dark .header.scrolled { background-color: rgba(0, 0, 0, 0.7); }
+        .nav { display: flex; justify-content: space-between; align-items: center; }
+        .nav-logo { font-size: 1.5rem; font-weight: 700; color: var(--text-color); text-decoration: none; }
+        .nav-links { display: flex; align-items: center; gap: 25px; }
+        .nav-link {
+            color: var(--text-color); text-decoration: none; font-weight: 600;
+            position: relative; opacity: 0.8; transition: opacity 0.3s ease;
+        }
+        .nav-link::after {
+            content: ''; position: absolute; width: 0; height: 2px;
+            bottom: -5px; left: 50%; transform: translateX(-50%);
+            background: var(--primary-color); transition: width 0.3s ease;
+        }
+        .nav-link:hover { opacity: 1; }
+        .nav-link:hover::after { width: 100%; }
+        .nav-controls { display: flex; align-items: center; gap: 15px; }
+        .control-btn { background: none; border: none; cursor: pointer; color: var(--text-color); padding: 5px; }
+        
+        #theme-toggle svg {
+            width: 24px; height: 24px; stroke: currentColor; fill: transparent;
+            stroke-width: 2px; stroke-linecap: round; stroke-linejoin: round;
+            transition: transform 0.5s cubic-bezier(0.5, -0.75, 0.25, 1.75);
+        }
+        #theme-toggle .sun { transform-origin: center center; }
+        html.dark #theme-toggle .sun { transform: scale(1.75); stroke: transparent; }
+        #theme-toggle .moon { transform: translateX(-10px); opacity: 0; transition-delay: 0.1s; }
+        html.dark #theme-toggle .moon { transform: translateX(0); opacity: 1; transition-delay: 0s; }
+
+        .hero {
+            height: 100vh; display: flex; align-items: center; text-align: center;
+            position: relative; overflow: hidden;
+            background-image: url('ahmed_elmahdy_hero.jpg');
+            background-size: cover; background-position: center;
+            background-attachment: fixed;
+        }
+        .hero::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+        }
+        .hero-content { position: relative; z-index: 1; color: #fff; width: 100%; }
+        .hero-title { font-size: 4rem; font-weight: 700; margin-bottom: 10px; }
+        .hero-subtitle { font-size: 1.5rem; font-weight: 400; opacity: 0.9; margin-bottom: 30px; }
+        .hero-cta { display: flex; justify-content: center; gap: 15px; margin-bottom: 40px; }
+        .btn { padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: 600; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .btn-primary { background: var(--gradient); color: #fff; }
+        .btn-secondary { background: rgba(255, 255, 255, 0.2); color: #fff; border: 1px solid rgba(255, 255, 255, 0.3); }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+        .hero-socials { display: flex; justify-content: center; gap: 15px; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .social-link {
+            display: flex; justify-content: center; align-items: center;
+            width: 50px; height: 50px; background-color: rgba(255, 255, 255, 0.15);
+            border-radius: 50%; text-decoration: none;
+            transition: background-color 0.3s ease;
+            opacity: 0; animation: fadeInUp 0.5s ease forwards;
+        }
+        .social-link i { font-size: 22px; color: #fff; transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.3, 1.5); }
+        .social-link:nth-child(1) { animation-delay: 0.4s; } .social-link:nth-child(2) { animation-delay: 0.5s; }
+        .social-link:nth-child(3) { animation-delay: 0.6s; } .social-link:nth-child(4) { animation-delay: 0.7s; }
+        .social-link:nth-child(5) { animation-delay: 0.8s; }
+        .social-link:hover { background-color: rgba(255, 255, 255, 0.25); }
+        .social-link:hover i { transform: scale(1.2); }
+        .social-link.facebook:hover { background-color: #1877F2; }
+        .social-link.instagram:hover { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%); }
+        .social-link.twitter:hover { background-color: #1DA1F2; }
+        .social-link.tiktok:hover { background-color: #000; box-shadow: 0 0 10px #ff0050, 0 0 10px #00f2ea; }
+        .social-link.whatsapp:hover { background-color: #25D366; }
+        .section-title { text-align: center; font-size: 2.5rem; font-weight: 700; margin-bottom: 10px; }
+        .section-subtitle { text-align: center; font-size: 1.1rem; color: var(--text-color); opacity: 0.7; margin-bottom: 60px; }
+        .about-content { max-width: 800px; margin: 0 auto; text-align: center; font-size: 1.1rem; line-height: 1.8; opacity: 0.9; }
+        #projects { background-color: var(--secondary-color); }
+        .projects-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; }
+        .project-card {
+            background-color: var(--bg-color); border-radius: 15px; overflow: hidden;
+            box-shadow: var(--shadow); text-decoration: none; color: var(--text-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .project-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0,0,0,0.15); }
+        html.dark .project-card:hover { box-shadow: 0 15px 40px rgba(0,0,0,0.4); }
+        .project-card img { width: 100%; height: 250px; object-fit: cover; display: block; }
+        .project-info { padding: 25px; }
+        .project-info h3 { font-size: 1.5rem; font-weight: 600; }
+        .contact-content { text-align: center; }
+        .contact-info { margin-bottom: 40px; }
+        .contact-info a {
+            font-size: 1.2rem; color: var(--text-color); text-decoration: none;
+            display: inline-flex; align-items: center; gap: 10px; margin: 10px 0;
+            transition: color 0.3s ease; display: block;
+        }
+        .contact-info a:hover { color: var(--primary-color); }
+        .contact-info a i { font-size: 1.3rem; }
+        .contact-socials { display: flex; justify-content: center; gap: 20px; }
+        .contact-socials .social-link { width: 60px; height: 60px; background-color: var(--secondary-color); }
+        .contact-socials .social-link i { color: var(--text-color); font-size: 28px; }
+        
+        /* --- Footer & Visitor Counter Styles (NEW) --- */
+        .footer {
+            background-color: var(--secondary-color); padding: 40px 0 20px 0; /* Adjusted padding */
+            text-align: center; border-top: 1px solid var(--border-color);
+        }
+        .footer-links { margin-bottom: 20px; }
+        .footer-links a { margin: 0 15px; color: var(--text-color); opacity: 0.7; text-decoration: none; transition: opacity 0.3s ease; }
+        .footer-links a:hover { opacity: 1; }
+        .visitor-stats {
+            display: flex; justify-content: center; align-items: center;
+            gap: 25px; margin-bottom: 20px; color: var(--text-color); opacity: 0.6;
+            font-size: 0.9rem;
+        }
+        .stat-item {
+            display: flex; align-items: center; gap: 8px;
+        }
+        #copyright {
+             margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; } .hero-title { font-size: 2.5rem; }
+            .hero-subtitle { font-size: 1.2rem; } .hero-cta { flex-direction: column; align-items: center; }
+            .projects-grid { grid-template-columns: 1fr; } .section-title { font-size: 2rem; }
+            section { padding: 80px 0; }
+        }
+    </style>
+</head>
+<body>
+    
+    <header class="header" id="header">
+        <div class="container">
+            <nav class="nav">
+                <a href="#" class="nav-logo">Ahmed El Mahdy</a>
+                <div class="nav-links">
+                    <a href="#about" class="nav-link" data-translate="nav_about">About</a>
+                    <a href="#projects" class="nav-link" data-translate="nav_projects">Projects</a>
+                    <a href="#contact" class="nav-link" data-translate="nav_contact">Contact</a>
+                </div>
+                <div class="nav-controls">
+                    <button id="language-toggle" class="control-btn" aria-label="Toggle Language"><span data-translate="lang_toggle">AR</span></button>
+                    <button id="theme-toggle" class="control-btn" aria-label="Toggle Theme">
+                        <svg class="sun-and-moon" aria-hidden="true" width="24" height="24" viewBox="0 0 24 24">
+                            <circle class="sun" cx="12" cy="12" r="6" mask="url(#moon-mask)"></circle>
+                            <g class="sun-beams" stroke="currentColor">
+                                <line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line>
+                                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                                <line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line>
+                                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                            </g>
+                            <mask class="moon" id="moon-mask">
+                                <rect x="0" y="0" width="100%" height="100%" fill="white"></rect>
+                                <circle cx="24" cy="10" r="6" fill="black"></circle>
+                            </mask>
+                        </svg>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content container">
+                <h1 class="hero-title" data-translate="hero_title">Ahmed El Mahdy</h1>
+                <p class="hero-subtitle" data-translate="hero_subtitle">Entrepreneur • Freelancer • Web Designer</p>
+                <div class="hero-cta">
+                    <a id="whatsapp-btn" href="#" class="btn btn-primary" data-translate="hero_cta_contact">Contact via WhatsApp</a>
+                    <a href="#projects" class="btn btn-secondary" data-translate="hero_cta_work">View My Work</a>
+                </div>
+                <div class="hero-socials">
+                    <a href="https://www.facebook.com" target="_blank" class="social-link facebook" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com" target="_blank" class="social-link instagram" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://twitter.com" target="_blank" class="social-link twitter" aria-label="X/Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="https://www.tiktok.com" target="_blank" class="social-link tiktok" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="https://wa.me/201116506278" target="_blank" class="social-link whatsapp" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </section>
+        
+        <section id="about" class="about">
+            <div class="container">
+                <h2 class="section-title" data-translate="about_title">About Me</h2>
+                <p class="section-subtitle" data-translate="about_subtitle">A brief introduction</p>
+                <div class="about-content" data-translate="about_bio">
+                    I'm Ahmed El Mahdy, an entrepreneur and freelance web designer with a passion for creating modern, elegant, and functional digital experiences. I thrive on turning complex problems into simple, beautiful, and intuitive designs. My work is not just about aesthetics; it's about building solutions that drive results and help businesses grow. I have developed several personal projects, including QR Hub and Office Master, to explore new technologies and refine my skills.
+                </div>
+            </div>
+        </section>
+
+        <section id="projects" class="projects">
+            <div class="container">
+                <h2 class="section-title" data-translate="projects_title">My Projects</h2>
+                <p class="section-subtitle" data-translate="projects_subtitle">A selection of my recent work</p>
+                <div class="projects-grid">
+                    <a href="https://elm3hdy01.github.io/Qr_Hub/" target="_blank" class="project-card">
+                        <img src="qr_hub_project.jpg" alt="QR Hub Project Screenshot">
+                        <div class="project-info">
+                            <h3 data-translate="project1_title">QR Hub</h3>
+                        </div>
+                    </a>
+                    <a href="https://elm3hdy01.github.io/OfficeMaster/" target="_blank" class="project-card">
+                        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=800&auto=format&fit=crop" alt="Office Master Project Screenshot">
+                        <div class="project-info">
+                            <h3 data-translate="project2_title">Office Master</h3>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2 class="section-title" data-translate="contact_title">Get In Touch</h2>
+                <p class="section-subtitle" data-translate="contact_subtitle">Let's build something amazing together</p>
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <a href="mailto:elm3hdy1@gmail.com"><i class="fa-regular fa-envelope"></i> elm3hdy1@gmail.com</a>
+                        <a href="https://wa.me/201116506278"><i class="fa-brands fa-whatsapp"></i> +20 111 650 6278</a>
+                    </div>
+                    <div class="contact-socials">
+                        <a href="https://www.facebook.com" target="_blank" class="social-link facebook" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com" target="_blank" class="social-link instagram" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://twitter.com" target="_blank" class="social-link twitter" aria-label="X/Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://www.tiktok.com" target="_blank" class="social-link tiktok" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-links">
+                <a href="#about" data-translate="nav_about">About</a>
+                <a href="#projects" data-translate="nav_projects">Projects</a>
+                <a href="#contact" data-translate="nav_contact">Contact</a>
+            </div>
+
+            <div class="visitor-stats">
+                <div class="stat-item">
+                    <i class="fa-solid fa-users"></i>
+                    <span data-translate="total_visits_label">Total Visits:</span>
+                    <span id="total-visits">...</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fa-solid fa-street-view"></i>
+                    <span data-translate="today_visits_label">Today's Visits:</span>
+                    <span id="today-visits">...</span>
+                </div>
+            </div>
+            
+            <p id="copyright"></p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // ... (الكود الخاص بالهيدر واللغة والدارك مود يظل كما هو) ...
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => { window.scrollY > 50 ? header.classList.add('scrolled') : header.classList.remove('scrolled'); });
+            const themeToggle = document.getElementById('theme-toggle');
+            const htmlEl = document.documentElement;
+            const setTheme = (theme) => {
+                htmlEl.classList.remove('light', 'dark');
+                htmlEl.classList.add(theme);
+                localStorage.setItem('theme', theme);
+            };
+            themeToggle.addEventListener('click', () => { setTheme(htmlEl.classList.contains('dark') ? 'light' : 'dark'); });
+            setTheme(localStorage.getItem('theme') || 'light');
+            const translations = {
+                en: { nav_about: "About", nav_projects: "Projects", nav_contact: "Contact", lang_toggle: "AR", hero_title: "Ahmed El Mahdy", hero_subtitle: "Entrepreneur • Freelancer • Web Designer", hero_cta_contact: "Contact via WhatsApp", hero_cta_work: "View My Work", about_title: "About Me", about_subtitle: "A brief introduction", about_bio: "I'm Ahmed El Mahdy, an entrepreneur and freelance web designer with a passion for creating modern, elegant, and functional digital experiences. I thrive on turning complex problems into simple, beautiful, and intuitive designs. My work is not just about aesthetics; it's about building solutions that drive results and help businesses grow. I have developed several personal projects, including QR Hub and Office Master, to explore new technologies and refine my skills.", projects_title: "My Projects", projects_subtitle: "A selection of my recent work", project1_title: "QR Hub", project2_title: "Office Master", contact_title: "Get In Touch", contact_subtitle: "Let's build something amazing together", copyright: `© ${new Date().getFullYear()} Ahmed El Mahdy. All Rights Reserved.`, total_visits_label: "Total Visits:", today_visits_label: "Today's Visits:" },
+                ar: { nav_about: "عني", nav_projects: "المشاريع", nav_contact: "تواصل", lang_toggle: "EN", hero_title: "أحمد المهدي", hero_subtitle: "رائد أعمال • مصمم ويب حر", hero_cta_contact: "تواصل عبر واتساب", hero_cta_work: "شاهد أعمالي", about_title: "نبذة عني", about_subtitle: "مقدمة بسيطة", about_bio: "أنا أحمد المهدي، رائد أعمال ومصمم ويب مستقل شغوف بإنشاء تجارب رقمية عصرية وأنيقة وعملية. أستمتع بتحويل المشاكل المعقدة إلى تصميمات بسيطة وجميلة وبديهية. عملي لا يقتصر على الجماليات فحسب، بل يتمحور حول بناء حلول تحقق النتائج وتساعد الشركات على النمو. لقد قمت بتطوير العديد من المشاريع الشخصية، بما في ذلك QR Hub و Office Master، لاستكشاف تقنيات جديدة وصقل مهاراتي.", projects_title: "مشاريعي", projects_subtitle: "مجموعة من أحدث أعمالي", project1_title: "كي آر هب", project2_title: "أوفيس ماستر", contact_title: "تواصل معي", contact_subtitle: "لنصنع شيئاً مذهلاً معاً", copyright: `© ${new Date().getFullYear()} أحمد المهدي. جميع الحقوق محفوظة.`, total_visits_label: "إجمالي الزيارات:", today_visits_label: "زيارات اليوم:" }
+            };
+            const languageToggle = document.getElementById('language-toggle');
+            const whatsappBtn = document.getElementById('whatsapp-btn');
+            const copyrightEl = document.getElementById('copyright');
+            const setLanguage = (lang) => {
+                htmlEl.setAttribute('lang', lang);
+                htmlEl.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+                document.querySelectorAll('[data-translate]').forEach(el => { const key = el.getAttribute('data-translate'); if (translations[lang][key]) { el.textContent = translations[lang][key]; } });
+                const phone = '+201116506278';
+                const message = lang === 'ar' ? encodeURIComponent('مرحباً أحمد، لقد رأيت موقعك الشخصي وأود التواصل معك.') : encodeURIComponent("Hello Ahmed, I saw your portfolio and would like to get in touch.");
+                whatsappBtn.href = `https://wa.me/${phone}?text=${message}`;
+                copyrightEl.textContent = translations[lang].copyright;
+                localStorage.setItem('language', lang);
+            };
+            languageToggle.addEventListener('click', () => { setLanguage(htmlEl.getAttribute('lang') === 'ar' ? 'en' : 'ar'); });
+            const savedLang = localStorage.getItem('language') || 'en';
+            setLanguage(savedLang);
+
+            // --- Visitor Counter Logic (NEW) ---
+            const totalVisitsEl = document.getElementById('total-visits');
+            const todayVisitsEl = document.getElementById('today-visits');
+
+            // 1. Get today's date in YYYY-MM-DD format
+            const today = new Date();
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            const todayKey = `${yyyy}-${mm}-${dd}`;
+
+            // 2. Define API keys (make them unique to your site)
+            const namespace = 'ahmedelmahdy-portfolio';
+            const totalKey = 'total-visits';
+            const dailyKey = `visits-${todayKey}`;
+
+            // 3. Function to update a counter and display it
+            function updateCounter(key, element) {
+                fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        element.textContent = data.value;
+                    })
+                    .catch(error => {
+                        console.error('Error fetching visitor count:', error);
+                        element.textContent = 'N/A';
+                    });
+            }
+
+            // 4. Call the function for both counters
+            updateCounter(totalKey, totalVisitsEl);
+            updateCounter(dailyKey, todayVisitsEl);
+        });
+    </script>
+
+</body>
+</html>
