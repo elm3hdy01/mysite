@@ -150,8 +150,9 @@
         .footer-links a:hover { opacity: 1; }
         .visitor-stats {
             display: flex; justify-content: center; align-items: center;
-            gap: 25px; margin-bottom: 20px; color: var(--text-color); opacity: 0.6;
+            gap: 25px; margin-bottom: 20px; color: var(--text-color); opacity: 0; /* يبدأ مخفي */
             font-size: 0.9rem;
+            transition: opacity 0.5s ease-in-out; /* حركة ظهور ناعمة */
         }
         .stat-item {
             display: flex; align-items: center; gap: 8px;
@@ -299,17 +300,8 @@
         </div>
     </footer>
     
-    <script src="https://cdn.counter.dev/script.js" 
-        data-id="92463d8b-a914-44ea-b2e9-473e791a1174" 
-        data-utcoffset="3"
-        data-selector-total="#total-visits"
-        data-selector-daily="#today-visits"
-        async>
-    </script>
-
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // ... (All other JavaScript code remains the same) ...
             const header = document.getElementById('header');
             window.addEventListener('scroll', () => { window.scrollY > 50 ? header.classList.add('scrolled') : header.classList.remove('scrolled'); });
             const themeToggle = document.getElementById('theme-toggle');
@@ -344,9 +336,52 @@
             const savedLang = localStorage.getItem('language') || 'en';
             setLanguage(savedLang);
 
-            // *** تم حذف كود جلب الزيارات القديم بالكامل ***
-            // الكود الجديد الموجود فوق في آخر الـ body هو المسؤول عن كل شيء الآن
+            // --- Visitor Counter Logic - Final Version ---
+            const counterId = '92463d8b-a914-44ea-b2e9-473e791a1174';
+
+            // Function to RECORD the visit
+            function recordVisit() {
+                const script = document.createElement('script');
+                script.src = `https://cdn.counter.dev/script.js?id=${counterId}&utcoffset=3`;
+                script.async = true;
+                // When the script loads, we know the visit has been recorded, then we fetch the counts
+                script.onload = () => {
+                    displayCounts();
+                };
+                // If the script fails to load, hide the stats
+                script.onerror = () => {
+                    document.querySelector('.visitor-stats').style.display = 'none';
+                };
+                document.body.appendChild(script);
+            }
+
+            // Function to DISPLAY the counts
+            function displayCounts() {
+                const totalVisitsEl = document.getElementById('total-visits');
+                const todayVisitsEl = document.getElementById('today-visits');
+                const statsContainer = document.querySelector('.visitor-stats');
+
+                const fetchTotal = fetch(`https://counter.dev/api/${counterId}/visits`).then(res => res.json());
+                const fetchToday = fetch(`https://counter.dev/api/${counterId}/visits?period=daily`).then(res => res.json());
+
+                Promise.all([fetchTotal, fetchToday])
+                    .then(([totalData, todayData]) => {
+                        totalVisitsEl.textContent = totalData.count.toLocaleString();
+                        todayVisitsEl.textContent = todayData.count.toLocaleString();
+                        // If successful, fade in the stats
+                        statsContainer.style.opacity = '1';
+                    })
+                    .catch(error => {
+                        console.error('Could not display visitor counts:', error);
+                        // If fetching fails, hide the entire section
+                        statsContainer.style.display = 'none';
+                    });
+            }
+            
+            // Start the process
+            recordVisit();
         });
     </script>
+
 </body>
 </html>
