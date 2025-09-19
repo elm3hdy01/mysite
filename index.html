@@ -79,7 +79,7 @@
             position: relative; overflow: hidden;
             background-image: url('ahmed_elmahdy_hero.jpg');
             background-size: cover; background-position: center;
-            background-attachment: fixed;
+            background-attachment: fixed; 
         }
         .hero::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -165,6 +165,9 @@
             .hero-subtitle { font-size: 1.2rem; } .hero-cta { flex-direction: column; align-items: center; }
             .projects-grid { grid-template-columns: 1fr; } .section-title { font-size: 2rem; }
             section { padding: 80px 0; }
+            .hero {
+                background-attachment: scroll;
+            }
         }
     </style>
 </head>
@@ -296,6 +299,8 @@
         </div>
     </footer>
 
+    <script src="https://cdn.counter.dev/script.js" data-id="92463d8b-a914-44ea-b2e9-473e791a1174" data-utcoffset="3" async></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const header = document.getElementById('header');
@@ -323,7 +328,6 @@
                 const phone = '+201116506278';
                 const message = lang === 'ar' ? encodeURIComponent('مرحباً أحمد، لقد رأيت موقعك الشخصي وأود التواصل معك.') : encodeURIComponent("Hello Ahmed, I saw your portfolio and would like to get in touch.");
                 whatsappBtn.href = `https://wa.me/${phone}?text=${message}`;
-                // Corrected copyright year to be dynamic
                 const currentYear = new Date().getFullYear();
                 const copyrightText = lang === 'ar' ? `© ${currentYear} أحمد المهدي. جميع الحقوق محفوظة.` : `© ${currentYear} Ahmed El Mahdy. All Rights Reserved.`;
                 copyrightEl.textContent = copyrightText;
@@ -333,34 +337,27 @@
             const savedLang = localStorage.getItem('language') || 'en';
             setLanguage(savedLang);
 
-            // --- Visitor Counter Logic ---
+            // --- Visitor Counter Display Logic (Using Counter.dev) ---
             const totalVisitsEl = document.getElementById('total-visits');
             const todayVisitsEl = document.getElementById('today-visits');
-            const today = new Date();
-            const yyyy = today.getFullYear();
-            const mm = String(today.getMonth() + 1).padStart(2, '0');
-            const dd = String(today.getDate()).padStart(2, '0');
-            const todayKey = `${yyyy}-${mm}-${dd}`;
-            
-            // Using a more unique namespace to avoid potential blocks or conflicts
-            const namespace = 'ahmedelmahdy-pf-2025-unique'; 
-            const totalKey = 'total-visits';
-            const dailyKey = `visits-${todayKey}`;
+            const counterId = '92463d8b-a914-44ea-b2e9-473e791a1174';
 
-            function updateCounter(key, element) {
-                fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`)
+            function displayCounts() {
+                // Fetch total visits
+                fetch(`https://counter.dev/api/${counterId}/visits`)
                     .then(res => res.json())
-                    .then(data => {
-                        element.textContent = data.value;
-                    })
-                    .catch(error => {
-                        console.error('Counter Error:', error);
-                        element.textContent = '-'; // More elegant fallback
-                    });
+                    .then(data => { totalVisitsEl.textContent = data.count.toLocaleString(); })
+                    .catch(() => { totalVisitsEl.textContent = '-'; });
+                
+                // Fetch today's visits
+                fetch(`https://counter.dev/api/${counterId}/visits?period=daily`)
+                    .then(res => res.json())
+                    .then(data => { todayVisitsEl.textContent = data.count.toLocaleString(); })
+                    .catch(() => { todayVisitsEl.textContent = '-'; });
             }
-
-            updateCounter(totalKey, totalVisitsEl);
-            updateCounter(dailyKey, todayVisitsEl);
+            
+            // We wait a bit for the counter script to record the visit, then we display the numbers
+            setTimeout(displayCounts, 700);
         });
     </script>
 
