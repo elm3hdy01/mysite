@@ -150,7 +150,7 @@
         .footer-links a:hover { opacity: 1; }
         .visitor-stats {
             display: flex; justify-content: center; align-items: center;
-            gap: 25px; margin-bottom: 20px; color: var(--text-color); opacity: 0.6;
+            gap: 25px; margin-bottom: 20px; color: var(--text-color); opacity: 0.8;
             font-size: 0.9rem;
         }
         .stat-item {
@@ -283,12 +283,12 @@
                 <div class="stat-item">
                     <i class="fa-solid fa-users"></i>
                     <span data-translate="total_visits_label">Total Visits:</span>
-                    <span id="total-visits">...</span> 
+                    <span id="total-visits">...</span>
                 </div>
                 <div class="stat-item">
-                    <i class="fa-solid fa-street-view"></i>
-                    <span data-translate="today_visits_label">Today's Visits:</span>
-                    <span id="today-visits">...</span>
+                    <i class="fa-solid fa-eye"></i>
+                    <span data-translate="unique_visits_label">Unique Visitors:</span>
+                    <span id="unique-visitors">...</span>
                 </div>
             </div>
             
@@ -296,7 +296,11 @@
         </div>
     </footer>
     
-    <script>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getFirestore, doc, getDoc, updateDoc, increment, setDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
         document.addEventListener('DOMContentLoaded', () => {
             const header = document.getElementById('header');
             window.addEventListener('scroll', () => { window.scrollY > 50 ? header.classList.add('scrolled') : header.classList.remove('scrolled'); });
@@ -310,8 +314,8 @@
             themeToggle.addEventListener('click', () => { setTheme(htmlEl.classList.contains('dark') ? 'light' : 'dark'); });
             
             const translations = {
-                en: { nav_about: "About", nav_projects: "Projects", nav_contact: "Contact", lang_toggle: "AR", hero_title: "Ahmed El Mahdy", hero_subtitle: "Entrepreneur • Freelancer • Web Designer", hero_cta_contact: "Contact via WhatsApp", hero_cta_work: "View My Work", about_title: "About Me", about_subtitle: "A brief introduction", about_bio: "I'm Ahmed El Mahdy, an entrepreneur and freelance web designer with a passion for creating modern, elegant, and functional digital experiences. I thrive on turning complex problems into simple, beautiful, and intuitive designs. My work is not just about aesthetics; it's about building solutions that drive results and help businesses grow. I have developed several personal projects, including QR Hub and Office Master, to explore new technologies and refine my skills.", projects_title: "My Projects", projects_subtitle: "A selection of my recent work", project1_title: "QR Hub", project2_title: "Office Master", contact_title: "Get In Touch", contact_subtitle: "Let's build something amazing together", copyright: `© 2025 Ahmed El Mahdy. All Rights Reserved.`, total_visits_label: "Total Visits:", today_visits_label: "Today's Visits:" },
-                ar: { nav_about: "عني", nav_projects: "المشاريع", nav_contact: "تواصل", lang_toggle: "EN", hero_title: "أحمد المهدي", hero_subtitle: "رائد أعمال • مصمم ويب حر", hero_cta_contact: "تواصل عبر واتساب", hero_cta_work: "شاهد أعمالي", about_title: "نبذة عني", about_subtitle: "مقدمة بسيطة", about_bio: "أنا أحمد المهدي، رائد أعمال ومصمم ويب مستقل شغوف بإنشاء تجارب رقمية عصرية وأنيقة وعملية. أستمتع بتحويل المشاكل المعقدة إلى تصميمات بسيطة وجميلة وبديهية. عملي لا يقتصر على الجماليات فحسب، بل يتمحور حول بناء حلول تحقق النتائج وتساعد الشركات على النمو. لقد قمت بتطوير العديد من المشاريع الشخصية، بما في ذلك QR Hub و Office Master، لاستكشاف تقنيات جديدة وصقل مهاراتي.", projects_title: "مشاريعي", projects_subtitle: "مجموعة من أحدث أعمالي", project1_title: "كي آر هب", project2_title: "أوفيس ماستر", contact_title: "تواصل معي", contact_subtitle: "لنصنع شيئاً مذهلاً معاً", copyright: `© 2025 أحمد المهدي. جميع الحقوق محفوظة.`, total_visits_label: "إجمالي الزيارات:", today_visits_label: "زيارات اليوم:" }
+                en: { nav_about: "About", nav_projects: "Projects", nav_contact: "Contact", lang_toggle: "AR", hero_title: "Ahmed El Mahdy", hero_subtitle: "Entrepreneur • Freelancer • Web Designer", hero_cta_contact: "Contact via WhatsApp", hero_cta_work: "View My Work", about_title: "About Me", about_subtitle: "A brief introduction", about_bio: "I'm Ahmed El Mahdy, an entrepreneur and freelance web designer with a passion for creating modern, elegant, and functional digital experiences. I thrive on turning complex problems into simple, beautiful, and intuitive designs. My work is not just about aesthetics; it's about building solutions that drive results and help businesses grow. I have developed several personal projects, including QR Hub and Office Master, to explore new technologies and refine my skills.", projects_title: "My Projects", projects_subtitle: "A selection of my recent work", project1_title: "QR Hub", project2_title: "Office Master", contact_title: "Get In Touch", contact_subtitle: "Let's build something amazing together", copyright: `© 2025 Ahmed El Mahdy. All Rights Reserved.`, total_visits_label: "Total Visits:", unique_visits_label: "Unique Visitors:" },
+                ar: { nav_about: "عني", nav_projects: "المشاريع", nav_contact: "تواصل", lang_toggle: "EN", hero_title: "أحمد المهدي", hero_subtitle: "رائد أعمال • مصمم ويب حر", hero_cta_contact: "تواصل عبر واتساب", hero_cta_work: "شاهد أعمالي", about_title: "نبذة عني", about_subtitle: "مقدمة بسيطة", about_bio: "أنا أحمد المهدي، رائد أعمال ومصمم ويب مستقل شغوف بإنشاء تجارب رقمية عصرية وأنيقة وعملية. أستمتع بتحويل المشاكل المعقدة إلى تصميمات بسيطة وجميلة وبديهية. عملي لا يقتصر على الجماليات فحسب، بل يتمحور حول بناء حلول تحقق النتائج وتساعد الشركات على النمو. لقد قمت بتطوير العديد من المشاريع الشخصية، بما في ذلك QR Hub و Office Master، لاستكشاف تقنيات جديدة وصقل مهاراتي.", projects_title: "مشاريعي", projects_subtitle: "مجموعة من أحدث أعمالي", project1_title: "كي آر هب", project2_title: "أوفيس ماستر", contact_title: "تواصل معي", contact_subtitle: "لنصنع شيئاً مذهلاً معاً", copyright: `© 2025 أحمد المهدي. جميع الحقوق محفوظة.`, total_visits_label: "إجمالي الزيارات:", unique_visits_label: "الزوار المميزون:" }
             };
             const languageToggle = document.getElementById('language-toggle');
             const whatsappBtn = document.getElementById('whatsapp-btn');
@@ -339,68 +343,72 @@
 
             initializeApp();
 
-            // --- Visitor Counter Logic - Final & Guaranteed Version ---
-            function setupVisitorCounter() {
-                const totalVisitsEl = document.getElementById('total-visits');
-                const todayVisitsEl = document.getElementById('today-visits');
+            // --- Firebase Visitor Counter Logic ---
+            
+            // تم دمج إعدادات Firebase الخاصة بك هنا
+            const firebaseConfig = {
+              apiKey: "AIzaSyB9-mh9U8t9oA5U3h7kqOLjIR3jN2YEXaI",
+              authDomain: "still-freedom-472415-c3.firebaseapp.com",
+              projectId: "still-freedom-472415-c3",
+              storageBucket: "still-freedom-472415-c3.firebasestorage.app",
+              messagingSenderId: "22426676831",
+              appId: "1:22426676831:web:6e79ce8647a236709975ea"
+            };
 
-                // This is a free, public service that returns the visitor's IP address.
-                // We use it to create a unique but anonymous ID for the day.
-                fetch('https://api.ipify.org?format=json')
-                    .then(response => response.json())
-                    .then(data => {
-                        const visitorId = data.ip; // Using the IP as a unique identifier
-                        const today = new Date().toISOString().split('T')[0]; // Gets date as "YYYY-MM-DD"
-                        const hasVisitedTodayKey = `visited-${today}`;
+            async function setupVisitorCounter() {
+                try {
+                    const app = initializeApp(firebaseConfig);
+                    const db = getFirestore(app);
+                    const counterDocRef = doc(db, 'counters', 'page-visits');
 
-                        // Check if this visitor has already been counted today
-                        if (localStorage.getItem(hasVisitedTodayKey) !== visitorId) {
-                            // If not, count this visit
-                            // We use a reliable backend service (like Netlify Functions or a simple glitch.me project)
-                            // This URL is a placeholder for your own simple backend endpoint
-                            const counterEndpoint = 'https://coordinated-glowing-confidence.glitch.me/hit'; // A reliable, free backend service
-                            
-                            fetch(counterEndpoint, { method: 'POST' })
-                                .then(res => res.json())
-                                .then(counts => {
-                                    totalVisitsEl.textContent = counts.total.toLocaleString();
-                                    todayVisitsEl.textContent = counts.daily.toLocaleString();
-                                    // Mark that this visitor has been counted today
-                                    localStorage.setItem(hasVisitedTodayKey, visitorId);
-                                })
-                                .catch(() => {
-                                     // If backend fails, fallback to simple display
-                                     displayCountsWithoutRecording();
-                                });
-                        } else {
-                            // If already visited today, just display the numbers without counting again
-                            displayCountsWithoutRecording();
+                    // Function to display counts
+                    const displayCounts = async () => {
+                        const docSnap = await getDoc(counterDocRef);
+                        if (docSnap.exists()) {
+                            const counts = docSnap.data();
+                            document.getElementById('total-visits').textContent = (counts.totalHits || 0).toLocaleString();
+                            document.getElementById('unique-visitors').textContent = (counts.uniqueVisitors || 0).toLocaleString();
                         }
-                    })
-                    .catch(() => {
-                        // If we can't get IP, we can't reliably count unique daily visits, so just display
-                        displayCountsWithoutRecording();
-                    });
+                    };
+
+                    // Function to record a visit
+                    const recordVisit = async () => {
+                        let visitorId = localStorage.getItem('visitorId');
+                        let isNewVisitor = !visitorId;
+
+                        if (isNewVisitor) {
+                            visitorId = self.crypto.randomUUID();
+                            localStorage.setItem('visitorId', visitorId);
+                        }
+
+                        const updates = { totalHits: increment(1) };
+                        if (isNewVisitor) {
+                            updates.uniqueVisitors = increment(1);
+                        }
+                        
+                        // Check if document exists before updating
+                        const docSnap = await getDoc(counterDocRef);
+                        if (docSnap.exists()) {
+                            await updateDoc(counterDocRef, updates);
+                        } else {
+                            // If doc doesn't exist, create it (for the very first visitor)
+                            await setDoc(counterDocRef, { totalHits: 1, uniqueVisitors: 1 });
+                        }
+                    };
+
+                    // Execute
+                    await displayCounts(); // Display current numbers first
+                    if (window.location.protocol.startsWith('http')) {
+                        await recordVisit(); // Then record the new visit
+                        await displayCounts(); // Refresh display after recording
+                    }
+
+                } catch (e) {
+                    console.error("Firebase initialization or counter failed.", e);
+                    document.querySelector('.visitor-stats').style.display = 'none';
+                }
             }
 
-            function displayCountsWithoutRecording() {
-                const totalVisitsEl = document.getElementById('total-visits');
-                const todayVisitsEl = document.getElementById('today-visits');
-                const counterEndpoint = 'https://coordinated-glowing-confidence.glitch.me/counts'; // Endpoint to only GET counts
-                
-                fetch(counterEndpoint)
-                    .then(res => res.json())
-                    .then(counts => {
-                        totalVisitsEl.textContent = counts.total.toLocaleString();
-                        todayVisitsEl.textContent = counts.daily.toLocaleString();
-                    })
-                    .catch(error => {
-                        console.error('Could not display visitor counts:', error);
-                        document.querySelector('.visitor-stats').style.display = 'none';
-                    });
-            }
-
-            // Start the counter logic
             setupVisitorCounter();
         });
     </script>
